@@ -1,0 +1,221 @@
+%% mnras_template.tex 
+%
+% LaTeX template for creating an MNRAS paper
+%
+% v3.0 released 14 May 2015
+%  (version numbers match those of mnras.cls)
+%
+% Copyright  (C) Royal Astronomical Society 2015
+% Authors:
+% Keith T. Smith  (Royal Astronomical Society)
+
+% Change log
+%
+% v3.0 May 2015
+%    Renamed to match the new package name
+%    Version number matches mnras.cls
+%    A few minor tweaks to wording
+% v1.0 September 2013
+%    Beta testing only - never publicly released
+%    First version: a simple  (ish) template for creating an MNRAS paper
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Basic setup. Most papers should leave these options alone.
+\documentclass[fleqn,usenatbib]{mnras}
+
+% MNRAS is set in Times font. If you don't have this installed  (most LaTeX
+% installations will be fine) or prefer the old Computer Modern fonts, comment
+% out the following line
+\usepackage{newtxtext,newtxmath}
+% Depending on your LaTeX fonts installation, you might get better results with one of these:
+%\usepackage{mathptmx}
+%\usepackage{txfonts}
+
+% Use vector fonts, so it zooms properly in on-screen viewing software
+% Don't change these lines unless you know what you are doing
+\usepackage[T1]{fontenc}
+\usepackage{ae,aecompl}
+
+
+%%%%% AUTHORS - PLACE YOUR OWN PACKAGES HERE %%%%%
+
+% Only include extra packages if you really need them. Common packages are:
+\usepackage{graphicx}	% Including figure files
+\usepackage{amsmath}	% Advanced maths commands
+\usepackage{amssymb}	% Extra maths symbols
+\usepackage{multirow}
+\usepackage{cuted}
+\usepackage{xcolor}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%% AUTHORS - PLACE YOUR OWN COMMANDS HERE %%%%%
+\newcommand{\hda}{H$\delta_{\rm A}$}
+\newcommand{\Wha}{W(H$\alpha$)}
+\newcommand{\ha}{H$\alpha$}
+\newcommand{\Reff}{$R_e$}
+
+\newcommand{\sfrunit}{\ensuremath{M_\odot/yr}} %unit of SFR
+
+% Please keep new commands to a minimum, and use \newcommand not \def to avoid
+% overwriting existing commands. Example:
+%\newcommand{\pcm}{\,cm$^{-2}$}	% per cm-squared
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%% TITLE PAGE %%%%%%%%%%%%%%%%%%%
+
+% Title of the paper, and the short title which is used in the headers.
+% Keep the title short and informative.
+\title[Kinematics of post-starbursts]{Kinematics of post-starburst galaxies in MaNGA}
+
+% The list of authors, and the short list which is used in the headers.
+% If you need two or more lines of authors, add an extra line using \newauthor
+\author[J. Proctor et al.]{
+John Proctor,$^{1}$\thanks{E-mail:jp210@st-andrews.ac.uk}
+%Dave Stark,$^{2}$
+%Vivienne Wild,$^{1}$\thanks{E-mail:vw8@st-andrews.ac.uk}
+%Anne-Marie Weijmans,$^{1}
+%\newauthor
+%Yirui Zheng??,$^{1}$
+%Kate Gould??,$^{1}$
+and et. al.
+\\
+% List of institutions
+$^{1}$School of Physics and Astronomy, University of St Andrews, North Haugh, St Andrews, Fife, KY16 9SS, Scotland, UK
+%\\$^{2}$ Somewhere
+%\\$^{3}$ Somewhere
+}
+
+% These dates will be filled out by the publisher
+\date{Accepted XXX. Received YYY; in original form ZZZ}
+
+% Enter the current year, for the copyright statements etc.
+\pubyear{2020}
+
+% Don't change these lines
+\begin{document}
+\label{firstpage}
+\pagerange{\pageref{firstpage}--\pageref{lastpage}}
+\maketitle
+
+% Abstract of the paper
+\begin{abstract}
+
+\end{abstract}
+
+% Select between one and six entries from the list of approved keywords.
+% Don't make up new ones. https://academic.oup.com/DocumentLibrary/mnras/keywords.pdf
+\begin{keywords}
+galaxies: evolution -- galaxies: interactions -- galaxies: stellar content -- galaxies: star formation
+\end{keywords}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%% BODY OF PAPER %%%%%%%%%%%%%%%%%%
+
+\section{Introduction}
+\label{sec:intro}
+
+\section{Data}
+\label{sec:data}
+MaNGA description
+
+MPL-9 description
+
+DAP description 
+
+SPX cubes - \Wha\ and \hda\ maps - ellcoo map - snr map 
+
+\section{Sample selection}
+\label{sec:sample}
+
+We select all MaNGA main and ancillary targets from the MPL-9 catalogue file (drpall-v2\_7\_1), excluding those with a critical data reduction failure flag, as well as those observed as part of the Coma, IC342 or M31 ancillary programs where the observing strategy is significantly different to the main MaNGA samples or only small parts of galaxies were targetted. We further exclude any galaxy without a measurement of the Petrosian elliptical effective radius (\Reff) in the NASA-Sloan Atlas (NSA), and select unique galaxies using the observations with the highest combined blue and red signal-to-noise ratio (SNR). This leads to a parent sample of 7784 unique galaxies. 
+
+We broadly follow the method of \citet{Chen2019} to identify galaxies with significant post-starburst regions, although they visually identified the galaxies, while we automate the process. From the DAP cubes described above, we extract the mean g-band weighted signal-to-noise ratio per pixel (SPX\_SNR); the map of elliptical polar distance of each spaxel from the centre of the galaxy in units of $R/R_e$ (SPX\_ELLCOO); the Gaussian-fitted equivalent width of the \ha\ emission line (\Wha) calculated from a combined stellar continuum and emission line fit (EMLINE\_GEW), alongside the mask array; and the \hda\ spectral index measurement and mask array, where any infilling due to nebular emission is removed. Following \citet{Chen2019} we designate PSB spaxels as those with no mask bits set in either of the two mask maps, and \hda$>3$\AA, \Wha$<10$\AA, and $\log_{10}$\Wha$<0.23\times$\hda$-0.46$. We additionally impose a SNR limit of 5 per pixel, relaxing this slightly from \citet{Chen2019} as we found the results still to be reliable when combined with the mask arrays at these low SNR levels. 
+
+We slice the galaxy into 3 elliptical annuli with $0<R/R_e<0.5$, $0.5<R/R_e<1$ and $1<R/R_e<1.5$, using the elliptical polar distance of each spaxel from the galaxy centre. We  identify as a central-PSB galaxy (CPSB) any galaxy with $>50$\% of spaxels in its inner annulus not masked (either by the emission line or spectral index masks, or the SNR threshold that we impose), and $>50$\% of these good spaxels classified as a PSB spaxel. Of these, we define a subset of ``pure'' PSB galaxies, where the fraction of PSB spaxels is $>50$\% in all three annuli, and $>50$\%, $>40$\% and $>30$\% of the spaxels in the inner, middle and outer annuli respectively are not masked. Finally, we define a ring-PSB galaxy (RPSB) sample, where the inner annulus contains $>50$\% unmasked spaxels and $<40$\% are classified as PSB, and either the middle or outer annuli contain $>40$\% of spaxels classified as a PSB, with a fraction of unmasked spaxels of  $>40$\% and $>30$\% respectively. This leads to 55 CPSBs, with a subset of 17 full PSB galaxies, and an independent sample of 44 RPSBs. 
+
+This is about the same number of CPSBs and slightly fewer RPSBs than we might expect compared to the 31 and 37 CPSBs and RPSBs respectively identifed in \citet{Chen2019}, from a parent sample of 4633. By inspecting the maps of those galaxies selected by \citet{Chen2019} that are excluded from our samples we see that...... {\bf very brief sentence or two on main reasons some are excluded. }
+
+
+
+
+\section{Method}
+\label{sec:method}
+
+\section{Results}
+\label{sec:results}
+
+
+\section{Discussion}
+\label{sec:Discussion}
+
+\section{Summary}
+\label{sec:Summary}
+
+
+\section*{Acknowledgements}
+
+Melanie - german summer student who started on this project
+
+YZ - CSC 
+
+
+
+Funding for the Sloan Digital Sky Survey IV has been provided by the Alfred P. Sloan Foundation, the U.S. Department of Energy Office of Science, and the Participating Institutions. SDSS-IV acknowledges
+support and resources from the Center for High-Performance Computing at
+the University of Utah. The SDSS web site is www.sdss.org.
+
+SDSS-IV is managed by the Astrophysical Research Consortium for the 
+Participating Institutions of the SDSS Collaboration including the 
+Brazilian Participation Group, the Carnegie Institution for Science, 
+Carnegie Mellon University, the Chilean Participation Group, the French Participation Group, Harvard-Smithsonian Center for Astrophysics, 
+Instituto de Astrof\'isica de Canarias, The Johns Hopkins University, Kavli Institute for the Physics and Mathematics of the Universe (IPMU) / 
+University of Tokyo, the Korean Participation Group, Lawrence Berkeley National Laboratory, 
+Leibniz Institut f\"ur Astrophysik Potsdam (AIP),  
+Max-Planck-Institut f\"ur Astronomie (MPIA Heidelberg), 
+Max-Planck-Institut f\"ur Astrophysik (MPA Garching), 
+Max-Planck-Institut f\"ur Extraterrestrische Physik (MPE), 
+National Astronomical Observatories of China, New Mexico State University, 
+New York University, University of Notre Dame, 
+Observat\'ario Nacional / MCTI, The Ohio State University, 
+Pennsylvania State University, Shanghai Astronomical Observatory, 
+United Kingdom Participation Group,
+Universidad Nacional Aut\'onoma de M\'exico, University of Arizona, 
+University of Colorado Boulder, University of Oxford, University of Portsmouth, 
+University of Utah, University of Virginia, University of Washington, University of Wisconsin, 
+Vanderbilt University, and Yale University.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%% REFERENCES %%%%%%%%%%%%%%%%%%
+
+% The best way to enter references is to use BibTeX:
+
+\bibliographystyle{mnras}
+\bibliography{ref} % if your bibtex file is called example.bib
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%% APPENDICES %%%%%%%%%%%%%%%%%%%%%
+
+\appendix
+
+\section{If necessary}
+\label{app:A}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% Don't change these lines
+\bsp	% typesetting comment
+\label{lastpage}
+\end{document}
+
+% End of mnras_template.tex
